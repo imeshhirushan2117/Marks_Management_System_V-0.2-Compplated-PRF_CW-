@@ -1,9 +1,23 @@
 import java.util.Scanner;
 
-public class MarkManagementClass {
-    public static int chainer = 0; // This is the variable that continue chain of student adding of all methods.
-    public static int countForPrintRanks = 0; // This varibale is for counting positions for rank printing.
+/**
+ * Created By Imesh Hirushan
+ * Project Name : MarkManegmentSystem
+ * Package Name : PACKAGE_NAME
+ * Date : Nov 29, 2023
+ * Time : 12:30 PM
+ */
+public class MarkManagementSystem {
+    public static int chainer = 0;
+    public static int countForPrintRanks = 0;
 
+    public static void main(String[] args) {
+        String[][] idName = new String[999][2];
+        int[][] marks = new int[999][3];
+        selectOption(idName, marks);
+    }
+
+    /*-------------------------Clear Console---------------------*/
     public static void clearConsole() {
         try {
             final String os = System.getProperty("os.name");
@@ -15,16 +29,15 @@ public class MarkManagementClass {
             }
         } catch (final Exception e) {
             e.printStackTrace();
-// Handle any exceptions.
+
         }
     }
 
-    //Below welcomeScreen method is for printing UI in index screen. there are no any inputs or calculations here.
+    /*-------------------------Home Section UI---------------------*/
     public static void welcomeScreen() {
         System.out.println("-------------------------------------------------------------------------------");
         System.out.println("|                   WELCOME TO GDSE MARKS MANAGEMENT SYSTEM                   |");
         System.out.println("-------------------------------------------------------------------------------");
-        //End of the header & Below code lines are for printing options.
         System.out.println("[1] Add New Student                      [2] Add New Students With Marks");
         System.out.println("[3] Add Marks                            [4] Update Student Details");
         System.out.println("[5] Update Marks                         [6] Delete Students");
@@ -32,45 +45,36 @@ public class MarkManagementClass {
         System.out.println("[9] Best In Programming Fundamentals     [10] Best In Database Management System");
     }
 
-    //This is the main method and here we are calling all other sub methods.
-    public static void main(String[] args) {
-        String[][] idName = new String[999][2];
-        int[][] marks = new int[999][3];
-        selectOption(idName, marks);
-    }
-
-
-    public static void selectOption(String[][] idName, int[][] marks) { //method is used for selecting other options in menu.
+    /*-------------------------Home Section Switch---------------------*/
+    public static void selectOption(String[][] idName, int[][] marks) {
         int[][] totalArray = new int[999][2];
-        welcomeScreen(); //welcome menu
+        welcomeScreen();
         do {
-            //welcomeScreen(); //welcome menu
             System.out.println();
-            Scanner scn1 = new Scanner(System.in); //Scanner
+            Scanner scn1 = new Scanner(System.in);
             System.out.print("Enter an option to continue : ");
             int option = scn1.nextInt();
             if(option > 0 && option < 12){
-                switch (option) { //enhanced switch for selecting and calling methods.
+                switch (option) {
                     case 1 : {
                         clearConsole();
-                        addStudent(idName, marks); //start to run adding student without adding marks.
-
+                        addStudent(idName, marks);
                     }
-                    case 2 : {
+                   case 2 : {
                         clearConsole();
                         addStudentWithMarks(idName, marks);
 
                     }
-                    case 3 : {
+                     case 3 : {
                         clearConsole();
                         addStudentsMarks(idName, marks);
 
                     }
-                    case 4 : {
+                     case 4 : {
                         clearConsole();
                         updateStudentDetails(idName, marks);
                     }
-                    case 5 : {
+                  case 5 : {
                         clearConsole();
                         updateMarks(idName, marks);
                     }
@@ -78,15 +82,15 @@ public class MarkManagementClass {
                         clearConsole();
                         deleteStudent(idName, marks, totalArray);
                     }
-                    case 7 : {
+                     case 7 : {
                         clearConsole();
                         printStudentDetails(idName, marks, totalArray);
                     }
-                    case 8 : {
+                   case 8 : {
                         clearConsole();
                         printStudentRanks(idName, marks, totalArray);
                     }
-                    case 9 : {
+                   case 9 : {
                         clearConsole();
                         bestInPF(idName, marks);
                     }
@@ -105,34 +109,33 @@ public class MarkManagementClass {
 
     }
 
+
+    /*-------------------------Add New Student Section---------------------*/
     public static void addStudent(String[][] idName, int[][] marks) {
         Scanner scn3 = new Scanner(System.in);
 
-
-        for (int i = chainer; i < 999; i++) { /*This runs iteration for adding students. user can add up to 999 students.
-                               chainer (var) is used to continue loop, if exit from the method and re-entered.*/
+        for (int i = chainer; i < 999; i++) {
             System.out.println("-------------------------------------------------------------------------------");
             System.out.println("|                                 ADD NEW STUDENT                             |");
             System.out.println("-------------------------------------------------------------------------------");
             System.out.print("Enter Student ID : ");
-            String tempVariable = scn3.nextLine(); //temp variable is used to compare is this string is override.
-            boolean chek = false; //used to run adding student name and other stuffs if above entered ID is not override.
-            for (int j = 0; j < 999; j++) { //iteration used to run all array elements, to compare with temp (var)
-                if (tempVariable.equals(idName[j][0])) { //comparing
+            String tempVariable = scn3.nextLine();
+            boolean chek = false;
+            for (int j = 0; j < 999; j++) {
+                if (tempVariable.equals(idName[j][0])) {
                     System.out.println("The student ID already exits.!");
-                    i--; //if it exits, remove 1 iteration from main loop.
-                    chek = true; //if it is exits assign true to boolean (var).
+                    i--;
+                    chek = true;
                     break;
-
                 }
             }
-            if (!chek) {//this allows to run code if chek boolean is false.So if ID number is exits chek (var) is true.
-                idName[i][0] = tempVariable; //if not exits this will assign tmp var to main var
+            if (!chek) {
+                idName[i][0] = tempVariable;
                 System.out.print("Enter Student Name : ");
                 idName[i][1] = scn3.nextLine();
-                chainer++; //continue the chain by adding 1 iteration per 1 added student
+                chainer++;
                 System.out.print("Student has been added successfully.");
-                String exitSelection;// = scn3.nextLine(); //getting selection
+                String exitSelection;
                 do{
                     System.out.print(" Do you want to add new student (Y/N) : ");
                     exitSelection = scn3.nextLine();
@@ -150,6 +153,7 @@ public class MarkManagementClass {
         }
     }
 
+    /*-------------------------Add New Student with marks Section---------------------*/
     public static void addStudentWithMarks(String[][] idName, int[][] marks) {
         Scanner scn4 = new Scanner(System.in);
         for (int i = chainer; i < 999; i++) {
@@ -160,16 +164,16 @@ public class MarkManagementClass {
             String tempVariable = scn4.nextLine();
             boolean chek = false;
             for (int j = 0; j < 999; j++) {
-                if (tempVariable.equals(idName[j][0])) { //comparing
+                if (tempVariable.equals(idName[j][0])) {
                     System.out.println("The student ID already exits.!");
-                    i--; //if it exits, remove 1 iteration from main loop.
-                    chek = true; //if it is exits assign true to boolean (var).
+                    i--;
+                    chek = true;
                     break;
 
                 }
             }
-            if (!chek) {//this allows to run code if chek boolean is false.So if ID number is exits chek (var) is true.
-                idName[i][0] = tempVariable; //if not exits this will assign tmp var to main var
+            if (!chek) {
+                idName[i][0] = tempVariable;
                 System.out.print("Enter Student Name : ");
                 idName[i][1] = scn4.nextLine();
                 int tempMarkPF = 0;
@@ -191,7 +195,7 @@ public class MarkManagementClass {
                 } while (tempMarkDB < 0 || tempMarkDB > 100);
                 marks[i][1] = tempMarkDB;
                 countForPrintRanks++;
-                chainer++; //continue the chain by adding 1 iteration per 1 added student
+                chainer++;
                 String exitSelection = "U";
                 exitSelection = scn4.nextLine();
                 System.out.print("Student has been added successfully." );
@@ -216,6 +220,7 @@ public class MarkManagementClass {
 
     }
 
+    /*-------------------------Add Mark Section---------------------*/
     public static void addStudentsMarks(String[][] idName, int[][] marks) {
         Scanner scn5 = new Scanner(System.in);
         for (int i = 0; ; i++) {
@@ -259,10 +264,7 @@ public class MarkManagementClass {
                     } while (tempMarksDB < 0 || tempMarksDB > 100);
                     marks[meter][1] = tempMarksDB;
                     countForPrintRanks++;
-
                 }
-
-
             }
             if (!point_1) {
                 System.out.println("Invalid Student ID");
@@ -291,6 +293,7 @@ public class MarkManagementClass {
         }
     }
 
+    /*-------------------------Update Student Details Section---------------------*/
     public static void updateStudentDetails(String[][] idName, int[][] marks) {
         Scanner scn6 = new Scanner(System.in);
         for (int i = 0; i < 1000; i++) {
@@ -310,7 +313,6 @@ public class MarkManagementClass {
                     meter = j;
                     break;
                 }
-
             }
             if (point_1) {
                 System.out.println("Student Name : " + idName[meter][1]);
@@ -338,9 +340,9 @@ public class MarkManagementClass {
                 break;
             }
         }
-
     }
 
+    /*-------------------------Update Marks Section---------------------*/
     public static void updateMarks(String[][] idName, int[][] marks) {
         Scanner scn7 = new Scanner(System.in);
         for (int i = 0; ; i++) {
@@ -406,6 +408,7 @@ public class MarkManagementClass {
 
     }
 
+    /*-------------------------Deleted Student Section---------------------*/
     public static void deleteStudent(String[][] idName, int[][] marks,int[][] totalArray) {
         Scanner scn8 = new Scanner(System.in);
         String tempID;
@@ -462,6 +465,7 @@ public class MarkManagementClass {
         }
     }
 
+    /*-------------------------Print Student Details Section---------------------*/
     public static void printStudentDetails(String[][] idName, int[][] marks,int[][] totalArray) {
         Scanner scn9 = new Scanner(System.in);
         for (int i = 0; ; i++) {
@@ -584,10 +588,11 @@ public class MarkManagementClass {
 
     }
 
+    /*-------------------------Print Student Rank Section---------------------*/
     public static void printStudentRanks (String[][] idName, int[][] marks,int[][] totalArray){
         Scanner scn10 = new Scanner(System.in);
         System.out.println("-------------------------------------------------------------------------------");
-        System.out.println("|                            PRINT STUDENT DETAILS                            |");
+        System.out.println("|                              PRINT STUDENT RANKS                            |");
         System.out.println("-------------------------------------------------------------------------------");
         boolean point_1 = false;
         boolean point_2 = false;
@@ -640,6 +645,8 @@ public class MarkManagementClass {
         }
 
     }
+
+    /*-------------------------Best PRF Section---------------------*/
     public static void bestInPF(String[][] idName, int[][] marks){
         Scanner scn11 = new Scanner(System.in);
         System.out.println("-------------------------------------------------------------------------------");
@@ -692,6 +699,8 @@ public class MarkManagementClass {
             selectOption(idName, marks);
         }
     }
+
+    /*-------------------------Best DBMS Section---------------------*/
     public static void bestInDB (String[][] idName, int[][] marks){
         Scanner scn12 = new Scanner(System.in);
         System.out.println("-------------------------------------------------------------------------------");
@@ -742,4 +751,5 @@ public class MarkManagementClass {
             selectOption(idName, marks);
         }
     }
+
 }
